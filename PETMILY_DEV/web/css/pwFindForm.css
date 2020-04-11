@@ -1,0 +1,186 @@
+@charset "UTF-8";
+
+@charset "UTF-8";
+
+/* 전체 페이지의 폰트 설정 */
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+/* [비밀번호 찾기] 폼 설정 */
+/*-------------------[비밀번호 찾기]아이디 입력------------------- */
+/* 비밀번호찾기 타이틀 가운데로 이동 */
+h3#title {
+	/* 글씨 가운데 정렬 */
+	text-align: center;
+	
+	/* 주변 영역 설정 */
+	padding-top: 10px;
+}
+
+/* ----------- */
+
+
+/* 아이디 입력하는 테이블 설정 */
+table {
+	/* 영역 설정 */
+	margin:0 auto;
+	margin-top: 120px;
+	margin-bottom: 20px;
+}
+
+/* input 설정 */
+input#userId {
+	/* 길이설정 */
+	width: 250px;
+	/* 높이설정 */
+    height: 40px;
+    /* 태그 내 글씨 위치설정 */
+    line-height: 20px;
+    /* 테두리설정 */
+    border-radius: 5px;
+    border: 1px solid rgb(182, 182, 182);
+    /* 글씨 살짝 왼쪽에서 띄우기 */
+    padding-left: 10px;
+    /* 왼쪽에서 살짝 띄우기 */
+    margin-left: 70px;
+}
+
+
+/* hr 아래 선 설정 */
+hr#bottom-line {
+	margin-bottom: 30px;
+	
+}
+
+/* [다음] 버튼 설정 */
+button#send-next-btn {
+	/* 원래는 안 보이게 해야 한다 */
+	/* display: none; */
+	
+	/* 버튼 크기, 테두리 설정 */
+    padding: 10px 60px;
+    margin-left: 210px;
+    margin-bottom: 10px;
+
+    background-color: black; /* 버튼 배경 */
+    border-radius:25px; /* 버튼을 둥글게! */
+    border: 0; /* 박스 선 없애기! */
+    font-size: large; /* 폰트 사이즈 */
+    color: white; /* 폰트 컬러 */
+}
+/* [다음] 버튼에 마우스를 올렸을 때 마우스 포인터 설정 */
+button#send-next-btn:hover {
+    cursor: pointer;
+    background-color: rgb(98, 98, 98);
+}
+/*-------------------[비밀번호 찾기]아이디 입력끝------------------- */
+
+
+
+/*-------------------div 영역 modal 설정---------------------- */
+div#contentModal1 {
+	display: inline;
+}
+div#contentModal2 {
+	display: none;
+}
+div#contentModal3 {
+	 display: none; 
+}
+/*-------------------div 영역 modal 설정 끝-------------------- */
+
+
+
+
+/*-------------------[비밀번호 찾기] 이메일 인증번호 설정 ------------- */
+/* 이메일 입력 멘트 설정 */
+p#p_title {
+	text-align: center;
+	
+	padding-top: 50px;
+}
+
+/* input 설정 */
+input#inputEmail {
+	/* 길이설정 */
+	width: 150px;
+	/* 높이설정 */
+    height: 30px;
+    /* 태그 내 글씨 위치설정 */
+    line-height: 20px;
+    /* 테두리설정 */
+    border-radius: 5px;
+    border: 1px solid rgb(182, 182, 182);
+    /* 글씨 살짝 왼쪽에서 띄우기 */
+    padding-left: 10px;
+    /* 왼쪽에서 살짝 띄우기 */
+    margin-left: 70px;
+}
+
+/* select 설정 */
+select#email_select {
+	width:150px; 
+	height:31px;
+	/* 테두리설정 */
+    border-radius: 5px;
+    border: 1px solid rgb(182, 182, 182);
+}
+
+/* [인증번호 전송] 버튼 설정 */
+button#send-btn {
+	/* 버튼 영역 설정 */
+	padding: 7px 15px;
+	margin-left: 10px;
+
+    /* 버튼 테두리, 폰트 색상, 배경 설정 */
+    border: 1px solid #ffcc33;
+    border-radius: 25px;
+    color: #ffcc33;
+    background-color: white;
+}
+
+/* [인증번호 전송] 버튼에 마우스를 올렸을 때 포인트 설정 */
+button#send-btn:hover {
+	cursor: pointer;
+    background-color: #ffcc33;
+    color: white;
+}
+/*-------------------[비밀번호 찾기] 이메일 인증번호 설정 끝------------*/
+
+
+
+
+
+/*-------------------[비밀번호 찾기] 이메일 인증번호 입력 설정 ---------- */
+div#contentNodal3 {
+	background-color: pink;
+	border: 1px solid;
+}
+
+
+div#contentModal3 table {
+	margin-bottom: 60px;
+}
+id#inputNum {
+	text-align:center;
+}
+
+hr#last-bottom-line {
+	margin-bottom: 20px;
+}
+
+button#send-end-btn {
+	/* 버튼 크기, 테두리 설정 */
+    padding: 10px 60px;
+    margin-top: 10px;
+    margin-left: 200px;
+    margin-bottom: 10px;
+
+    background-color: black; /* 버튼 배경 */
+    border-radius:25px; /* 버튼을 둥글게! */
+    border: 0; /* 박스 선 없애기! */
+    font-size: large; /* 폰트 사이즈 */
+    color: white; /* 폰트 컬러 */
+}

@@ -1,0 +1,26 @@
+@import "reset.css";
+@import "filter_section.css";
+@import "pet_sitter_section.css";
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  width: 1366px;
+  height: 768px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 1366px;
+  padding: 0;
+  margin: 0;
+}
+
+nav div {
+  background-color: #d3d9de;
+  height: 20px;
+}

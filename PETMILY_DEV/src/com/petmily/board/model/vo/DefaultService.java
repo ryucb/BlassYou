@@ -1,14 +1,16 @@
 package com.petmily.board.model.vo;
 
+import java.util.List;
+
 public class DefaultService {
 
 	private int reservationCODE;
 	private int boardCode;
-	private String defaultService;
+	private List<String> defaultService;
 	public DefaultService() {
 		// TODO Auto-generated constructor stub
 	}
-	public DefaultService(int reservationCODE, int boardCode, String defaultService) {
+	public DefaultService(int reservationCODE, int boardCode, List<String> defaultService) {
 		super();
 		this.reservationCODE = reservationCODE;
 		this.boardCode = boardCode;
@@ -26,16 +28,16 @@ public class DefaultService {
 	public void setBoardCode(int boardCode) {
 		this.boardCode = boardCode;
 	}
-	public String getDefaultService() {
+	public List<String> getDefaultService() {
 		return defaultService;
 	}
-	public void setDefaultService(String defaultService) {
+	public void setDefaultService(List<String> defaultService) {
 		this.defaultService = defaultService;
 	}
 	@Override
 	public String toString() {
-		return "DefaultServiceType [reservationCODE=" + reservationCODE + ", boardCode=" + boardCode
-				+ ", defaultService=" + defaultService + "]";
+		return "DefaultService [reservationCODE=" + reservationCODE + ", boardCode=" + boardCode + ", defaultService="
+				+ defaultService + "]";
 	}
 	
 }

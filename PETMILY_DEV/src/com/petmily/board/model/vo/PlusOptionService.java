@@ -1,10 +1,12 @@
 package com.petmily.board.model.vo;
 
+import java.util.List;
+
 public class PlusOptionService {
 
 	private int reservcationCode;
 	private int boardNo;
-	private String plusOptionType;
+	private List<String> plus;
 	private int smallPrice;
 	private int middlePrice;
 	private int bigPrice;
@@ -14,12 +16,12 @@ public class PlusOptionService {
 	public PlusOptionService() {
 		// TODO Auto-generated constructor stub
 	}
-	public PlusOptionService(int reservcationCode, int boardNo, String plusOptionType, int smallPrice, int middlePrice,
+	public PlusOptionService(int reservcationCode, int boardNo, List<String> plus, int smallPrice, int middlePrice,
 			int bigPrice, int oneWayPrice, int allWayPrice, int salePrice) {
 		super();
 		this.reservcationCode = reservcationCode;
 		this.boardNo = boardNo;
-		this.plusOptionType = plusOptionType;
+		this.plus = plus;
 		this.smallPrice = smallPrice;
 		this.middlePrice = middlePrice;
 		this.bigPrice = bigPrice;
@@ -39,11 +41,11 @@ public class PlusOptionService {
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
-	public String getPlusOptionType() {
-		return plusOptionType;
+	public List<String> getPlus() {
+		return plus;
 	}
-	public void setPlusOptionType(String plusOptionType) {
-		this.plusOptionType = plusOptionType;
+	public void setPlus(List<String> plus) {
+		this.plus = plus;
 	}
 	public int getSmallPrice() {
 		return smallPrice;
@@ -83,10 +85,10 @@ public class PlusOptionService {
 	}
 	@Override
 	public String toString() {
-		return "PlusOptionService [reservcationCode=" + reservcationCode + ", boardNo=" + boardNo + ", plusOptionType="
-				+ plusOptionType + ", smallPrice=" + smallPrice + ", middlePrice=" + middlePrice + ", bigPrice="
-				+ bigPrice + ", oneWayPrice=" + oneWayPrice + ", allWayPrice=" + allWayPrice + ", salePrice="
-				+ salePrice + "]";
+		return "PlusOptionService [reservcationCode=" + reservcationCode + ", boardNo=" + boardNo + ", smallPrice="
+				+ smallPrice + ", middlePrice=" + middlePrice + ", bigPrice=" + bigPrice + ", oneWayPrice="
+				+ oneWayPrice + ", allWayPrice=" + allWayPrice + ", salePrice=" + salePrice + "]";
 	}
+
 	
 }
