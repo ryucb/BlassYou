@@ -1,0 +1,378 @@
+/* *{
+    border: 1px solid black;
+} */
+
+
+@charset "UTF-8";
+
+
+/* #menubar{
+    width:100%;
+    height: 50px;
+    background-color: gray;
+    position: fixed;
+} */
+
+#main_img{
+    width:100%;
+    height: 400px;
+
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: 50px; */
+
+}
+
+
+#main_img img:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
+
+#main_content{
+    width: 1100px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main_content_01{
+    width: 100%;
+    height: 50px;
+}
+
+.main_content_01>button{
+    width:30%;
+    height: 40px;
+    margin-right: 2%;
+    margin-top: 4px;
+
+}
+
+.button_radius{
+    border-radius: 30px;
+}
+
+.main_content_02{
+    width: 100%;
+    height: 250px;
+    
+    
+}
+
+#main_content_02_info{
+    width: 100%;
+    height: 100%;
+    border: 1px solid gray;
+}
+
+#profile{
+	width: 150px;
+    height: 150px;
+    border-radius: 70%;
+    overflow: hidden;
+    margin-top: 25%;
+    margin-left: 20px;
+    
+}
+
+#main_content_02_calendar{
+    width: 100%;
+    height: 100%;
+}
+
+#temporary1{
+    width: 100%;
+    height: 170px;
+    margin-top: 3px;
+    border: 1px solid gray;
+}
+
+.main_content_03{
+    width: 100%;
+    height: 100%;
+}
+
+.main_content_03 button{
+    width: 100%;
+    height: 100%;
+}
+
+.main_content_04{
+    width: 100%;
+    height: 360px;
+
+    margin-top: 40px;
+}
+
+.main_content_04_sub{
+    width: 86%;
+    height: 100%;
+
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+.main_content_04_sub>.write_space{
+    width: 100%;
+    height: 100px;
+
+    margin-bottom: 20px;
+}
+
+#certificate{
+    width:92%;
+    height: 80px;
+    margin-left: 8%;
+}
+
+.certificate td{
+    width: 300px;
+    height: 15px;
+    text-align: center;
+}
+
+#price{
+    width: 100%;
+}
+
+#price td,th{
+    width: 300px;
+    height: 15px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+#price_discription{
+    width:100%;
+    margin-top: 10px;
+}
+
+#price_discription td{
+    font-size: 13px;
+}
+
+#location{
+    width: 100%;
+    margin-top: 20px;
+    
+}
+
+
+
+#default_service{
+    height: 100px;
+}
+
+/* #default_service table{
+    width: 100px;
+    height: 200px;
+    margin-right: 20px;
+    font-size: 13px;
+    margin-top: 20px;
+    vertical-align: middle;
+} */
+
+
+#default_service img{
+    /* margin-right: 20px; */
+}
+
+
+
+#add_service{
+    width: 100%;
+    height: 100px;
+}
+
+#add_service img{
+    margin-right: 20px;
+}
+
+#add_service table{
+    margin-right: 20px;
+}
+
+.service_sub{
+
+    /* width: 200px; */
+    height: 60px;
+
+    margin-top: 10px;
+}
+
+.service_sub table{ 
+    width: 100%;
+    height: 50px;
+}
+
+.service_sub td{
+    font-size: 13px;
+    /* width: 263px; */
+}
+
+
+
+.review{
+    /* height: 450px; */
+ /*    border: 1px solid gray; */
+    margin-bottom: 50px;    
+}
+
+.review_profile{
+    width: 80px;
+    height: 80px;
+    border-radius: 70%;
+    overflow: hidden;
+    margin-top:50px;
+    /* transform: translateY(-50%); */
+}
+
+
+
+.review{
+    display:none;
+}
+
+
+
+
+
+
+
+
+
+
+#section_end1{
+    width: 105%;
+    height: 80px;
+    background-color: lightgray;
+    position: fixed;
+    /* display: none; */
+    top: 90%;
+}
+
+#section_end2{
+    width: 105%;
+    height: 80px;
+    background-color: lightgray;
+    position: fixed;
+    display: none;
+    top: 90%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; 
+    padding: 20px;
+    width: 30%;    
+    height: 500px;
+    overflow-y: scroll;
+    border: 1px solid #888;
+                        
+}
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content div{
+    width: 100%;
+    height: 30px;
+}
+
+#img_modal{
+    display: hidden;
+}
+
+
+
+hr{
+    border: 0.5px solid lightgray;
+    width:100%;
+    
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#totalprice{
+    position: fixed;
+    width: 360px;
+    height: 50px;
+    bottom:0px; 
+    background-color: lightgray;
+}
+
+.sub_title{
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+#review_con{
+    width: 1100px;
+
+    display: none;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+}
+
+#end_modal button{
+
+    width: 150px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.modal_sub_img_none{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+

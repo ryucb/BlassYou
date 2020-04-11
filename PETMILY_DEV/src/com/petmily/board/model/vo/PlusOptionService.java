@@ -6,6 +6,7 @@ public class PlusOptionService {
 
 	private int reservcationCode;
 	private int boardNo;
+	private String plusOptionType;
 	private List<String> plus;
 	private int smallPrice;
 	private int middlePrice;
@@ -16,11 +17,13 @@ public class PlusOptionService {
 	public PlusOptionService() {
 		// TODO Auto-generated constructor stub
 	}
-	public PlusOptionService(int reservcationCode, int boardNo, List<String> plus, int smallPrice, int middlePrice,
-			int bigPrice, int oneWayPrice, int allWayPrice, int salePrice) {
+
+	public PlusOptionService(int reservcationCode, int boardNo, String plusOptionType, List<String> plus,
+			int smallPrice, int middlePrice, int bigPrice, int oneWayPrice, int allWayPrice, int salePrice) {
 		super();
 		this.reservcationCode = reservcationCode;
 		this.boardNo = boardNo;
+		this.plusOptionType = plusOptionType;
 		this.plus = plus;
 		this.smallPrice = smallPrice;
 		this.middlePrice = middlePrice;
@@ -29,6 +32,17 @@ public class PlusOptionService {
 		this.allWayPrice = allWayPrice;
 		this.salePrice = salePrice;
 	}
+	
+	
+
+	public String getPlusOptionType() {
+		return plusOptionType;
+	}
+
+	public void setPlusOptionType(String plusOptionType) {
+		this.plusOptionType = plusOptionType;
+	}
+
 	public int getReservcationCode() {
 		return reservcationCode;
 	}

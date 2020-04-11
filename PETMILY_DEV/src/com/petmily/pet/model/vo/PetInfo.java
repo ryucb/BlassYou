@@ -7,7 +7,7 @@ public class PetInfo {
 	private String petName;
 	private String petGender;
 	private String petKind;
-	private int petWeight;
+	private String petWeight;
 	private String petAge;
 	private String petAffinity;
 	private String petNeutralization;
@@ -36,7 +36,7 @@ public class PetInfo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PetInfo(int petCode, String userId, String petName, String petGender, String petKind, int petWeight,
+	public PetInfo(int petCode, String userId, String petName, String petGender, String petKind, String petWeight,
 			String petAge, String petAffinity, String petNeutralization, String petDisease, String petDiseaseText,
 			String petSeparation, String petSeparationText, String petUrine, String petUrineText, String petIndoorMark,
 			String petIndoorMarkText, String petHowl, String petHowlText, String heartDisease, String vaccine,
@@ -114,11 +114,11 @@ public class PetInfo {
 		this.petKind = petKind;
 	}
 
-	public int getPetWeight() {
+	public String getPetWeight() {
 		return petWeight;
 	}
 
-	public void setPetWeight(int petWeight) {
+	public void setPetWeight(String petWeight) {
 		this.petWeight = petWeight;
 	}
 
