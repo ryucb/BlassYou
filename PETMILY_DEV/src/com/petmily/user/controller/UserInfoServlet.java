@@ -28,7 +28,7 @@ public class UserInfoServlet extends HttpServlet {
 		System.out.println("마이페이지에 들어오는 id값 확인 : "+id);
 		
 //		화면 전환
-		request.getRequestDispatcher("/views/User/userInfo.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/user/userInfo.jsp").forward(request, response);
 	}
 
 

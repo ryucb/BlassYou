@@ -45,7 +45,7 @@ public class UserUpdateServlet extends HttpServlet {
 			
 //			가져온 내용을 저장하고 아이디값과 함께 매핑값을 보낸다.
 			request.setAttribute("user", u);
-			request.getRequestDispatcher("/views/User/userUpdateInfo.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/user/userUpdateInfo.jsp").forward(request, response);
 			
 		}
 		

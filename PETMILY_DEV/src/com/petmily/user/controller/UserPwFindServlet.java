@@ -20,7 +20,7 @@ public class UserPwFindServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		로그인 화면에서 [비밀번호 찾기]눌렀을 때 나오는 팝업창으로 화면 전환
-		request.getRequestDispatcher("/views/User/UserPwFind.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/user/UserPwFind.jsp").forward(request, response);
 	}
 
 

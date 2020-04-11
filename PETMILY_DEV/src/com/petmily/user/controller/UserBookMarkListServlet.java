@@ -46,7 +46,7 @@ public class UserBookMarkListServlet extends HttpServlet {
 			
 //			가져온 내용을 저장하고 아이디값과 함께 매핑값을 보낸다.
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("/views/User/userBookMarkList.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/user/userBookMarkList.jsp").forward(request, response);
 		}
 	}
 

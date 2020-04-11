@@ -34,7 +34,7 @@ public class UserIdDuplicateServlet extends HttpServlet {
 //		가져온 값을 저장한다
 		request.setAttribute("flag", flag);
 		
-		request.getRequestDispatcher("/views/User/joinDuplicate.jsp?user_Id="+userId).forward(request, response); 
+		request.getRequestDispatcher("/views/user/joinDuplicate.jsp?user_Id="+userId).forward(request, response); 
 	}
 
 

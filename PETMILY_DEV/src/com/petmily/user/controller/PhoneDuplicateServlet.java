@@ -33,7 +33,7 @@ public class PhoneDuplicateServlet extends HttpServlet {
 		request.setAttribute("flag", flag);
 		
 //		회원가입하는 화면으로 전환한다.
-		request.getRequestDispatcher("/views/User/joinDuplicatePhone.jsp").forward(request, response); 
+		request.getRequestDispatcher("/views/user/joinDuplicatePhone.jsp").forward(request, response); 
 		
 	}
 

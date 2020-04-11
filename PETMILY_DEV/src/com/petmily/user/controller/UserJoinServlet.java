@@ -20,7 +20,7 @@ public class UserJoinServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		회원가입 화면으로 전환하는 기능
-		request.getRequestDispatcher("views/User/userJoin.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/user/userJoin.jsp").forward(request, response);
 	}
 
 

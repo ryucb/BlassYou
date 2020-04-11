@@ -47,7 +47,7 @@ public class UserDeleteServlet extends HttpServlet {
 			request.setAttribute("user", u);
 			
 //			회원탈퇴 화면으로 전환
-			request.getRequestDispatcher("/views/User/UserDelete.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/user/UserDelete.jsp").forward(request, response);
 			
 		}
 		
