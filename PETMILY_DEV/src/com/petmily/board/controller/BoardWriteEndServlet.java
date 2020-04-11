@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.petmily.board.model.service.BoardService;
+//import com.petmily.board.model.service.BoardService;
 import com.petmily.board.model.vo.Board;
 
 
@@ -117,20 +117,20 @@ public class BoardWriteEndServlet extends HttpServlet {
 		Board b = new Board(0,id,title,files,count,introduce,small,middle,big,addSale,sale,address,map,
 				play,walk,old,showerOn,small1,middle1,big1,drug,pickUp,oneWay,allWay);
 		
-		int result = new BoardService().boardInsert(b);
+//		int result = new BoardService().boardInsert(b);
 		
 		
 		String msg="";
 		String loc="";
 		//등록이 성공 -> 등록성공 메세지출력, 공지사항리스트페이지로 이동
-		if(result>0) {
-			msg="업로드 성공";
-			loc="/sitter/write";
-		}else {
-		//등록이 실패 -> 등록실패 메세지출력, 공지사항작성페이지로 이동
-			msg="업로드 실패";
-			loc="/sitter/write";
-		}
+//		if(result>0) {
+//			msg="업로드 성공";
+//			loc="/sitter/write";
+//		}else {
+//		//등록이 실패 -> 등록실패 메세지출력, 공지사항작성페이지로 이동
+//			msg="업로드 실패";
+//			loc="/sitter/write";
+//		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 

@@ -323,7 +323,7 @@ label.custom-file-label::after{
                     </ul>
                     <!-- 콘텐츠 영역 -->
                     <div class="allList" id="container">
-	               	<%if(!list.isEmpty()){
+	               <%-- 	<%if(!list.isEmpty()){
 					for(Pet p : list){%>
 	                    <div class="list">
 	                    <p>No.<%=p.getPetCode()%></p>
@@ -335,7 +335,7 @@ label.custom-file-label::after{
 	                    <button type="button" class="btnDetail" >상세보기</button>
 	                    </div>
 	                    
-	                 <%} }%>
+	                 <%} }%> --%>
                 </div>
                     <div class="btn-enroll">
                         <div>

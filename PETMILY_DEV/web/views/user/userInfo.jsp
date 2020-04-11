@@ -3,9 +3,9 @@
 
 <%@ page import="com.petmily.user.model.vo.User" %>
 
-<%-- <%
+<%
 	User loginUser = (User)session.getAttribute("loginUser");
-%> --%>
+%>
 
 <%@ include file="/views/common/header.jsp" %>
 

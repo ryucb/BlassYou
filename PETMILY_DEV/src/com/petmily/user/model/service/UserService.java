@@ -1,16 +1,13 @@
 package com.petmily.user.model.service;
 
 import static com.petmily.common.JDBCTemplate.commit;
+import static com.petmily.common.JDBCTemplate.close;
 import static com.petmily.common.JDBCTemplate.getConnection;
 import static com.petmily.common.JDBCTemplate.rollback;
-import static com.petmily.common.JDBCTemplete_User.close;
-import static com.petmily.common.JDBCTemplete_User.commit;
-import static com.petmily.common.JDBCTemplete_User.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 
-import com.petmily.common.JDBCTemplete_User;
 import com.petmily.user.model.dao.UserDao;
 import com.petmily.user.model.vo.PetSitter2;
 import com.petmily.user.model.vo.User;
@@ -51,7 +48,7 @@ public class UserService {
 	
 //	濡쒓렇�씤 泥섎━ 湲곕뒫
 	public User userSelect(String user_id, String password) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		User user = dao.userSelect(conn, user_id, password);
 		close(conn);
 		return user;
@@ -59,7 +56,7 @@ public class UserService {
 	
 //	�쉶�썝媛��엯 以�, [�븘�씠�뵒 以묐났�솗�씤] 泥댄겕�븯湲�
 	public boolean userIdDuplicate(String userId) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		boolean flag = dao.userIdDuplicate(conn, userId);
 		close(conn);
 		return flag;
@@ -67,7 +64,7 @@ public class UserService {
 	
 //	�쉶�썝媛��엯 以�, [�쑕��踰덊샇 以묐났�솗�씤] 泥댄겕�븯湲�
 	public boolean phoneDuplicate(String phone) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		boolean flag = dao.phoneDuplicate(conn, phone);
 		close(conn);
 		return flag;
@@ -75,7 +72,7 @@ public class UserService {
 	
 //	�쉶�썝媛��엯 以�, [�씠硫붿씪 以묐났�솗�씤] 泥댄겕�븯湲�
 	public boolean emailDuplicate(String email) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		boolean flag = dao.emailDuplicate(conn, email);
 		close(conn);
 		return flag;
@@ -83,7 +80,7 @@ public class UserService {
 	
 //	�쉶�썝媛��엯 濡쒖쭅
 	public int userJoin(User u) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		int result = dao.userJoin(conn, u);
 		close(conn);
 		return result;
@@ -95,7 +92,7 @@ public class UserService {
 	
 //	�궡�젙蹂대낫湲� �솕硫댁쟾�솚(留덉씠�럹�씠吏�) 濡쒖쭅
 	public User userSelect(String id) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		User u = dao.userSelect(conn, id);
 		close(conn);
 		return u;
@@ -103,7 +100,7 @@ public class UserService {
 	
 //	�쉶�썝 �젙蹂� �닔�젙 濡쒖쭅
 	public int userUpdate(String id, String newPw, String email, String phone, String postNum, String address, String detailAddress) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		int result = dao.userUpdate(conn, id, newPw, email, phone, postNum, address, detailAddress);
 		
 		if(result>0) {
@@ -119,7 +116,7 @@ public class UserService {
 	
 //	�쉶�썝�깉�눜 濡쒖쭅
 	public int userDelete(String id) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		int result = dao.userDelete(conn, id);
 		
 		if(result > 0) {
@@ -135,7 +132,7 @@ public class UserService {
 	
 //	遺곷쭏�겕 濡쒖쭅
 	public List<UserBookMarkBoard> userBookMarkList(String id) {
-		Connection conn = JDBCTemplete_User.getConnection();
+		Connection conn = getConnection();
 		List<UserBookMarkBoard> list = dao.userBookMarkBoard(conn, id);
 		close(conn);
 		return list;
