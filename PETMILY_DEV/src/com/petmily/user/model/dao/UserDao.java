@@ -1,7 +1,6 @@
 package com.petmily.user.model.dao;
 
 import static com.petmily.common.JDBCTemplate.close;
-import static com.petmily.common.JDBCTemplete_User.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class UserDao {
 	public int insertUserTable(Connection conn, PetSitter2 pss) {
 		PreparedStatement pstmt=null;
 		int result = 0 ;
-		String sql=props.getProperty("insertUserTable");
+		String sql=prop.getProperty("insertUserTable");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, pss.getPetsitterId()); //?쉶?썝媛??엯 ?븘?씠?뵒
@@ -63,7 +62,7 @@ public class UserDao {
 	public int insertUserPetSitter(Connection conn, PetSitter2 pss) {
 		PreparedStatement pstmt=null;
 		int result = 0 ;
-		String sql=props.getProperty("insertPetSitter");
+		String sql=prop.getProperty("insertPetSitter");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, pss.getPetsitterId()); //?렖?떆?꽣 ?븘?씠?뵒
@@ -90,7 +89,7 @@ public class UserDao {
 	public int insertPetSitterCertificate(Connection conn, PetSitter2 pss) {
 		PreparedStatement pstmt=null;
 		int result = 0 ;
-		String sql=props.getProperty("insertPetSitterCertificate");
+		String sql=prop.getProperty("insertPetSitterCertificate");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, pss.getPetsitterId()); //?렖?떆?꽣 ?븘?씠?뵒
@@ -112,7 +111,7 @@ public class UserDao {
 	public int insertResidenceType(Connection conn, PetSitter2 pss) {
 		PreparedStatement pstmt=null;
 		int result = 0 ;
-		String sql=props.getProperty("insertResidenceType");
+		String sql=prop.getProperty("insertResidenceType");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, pss.getPetsitterId()); //?렖?떆?꽣 ?븘?씠?뵒

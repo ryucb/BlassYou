@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ page import="java.util.List, com.petmily.user.model.vo.UserBookMark" %>
+<%@ page import="java.util.List,com.petmily.user.model.vo.UserBookMark,com.petmily.user.model.vo.User" %>
 <%
 	List<UserBookMark> list = (List)request.getAttribute("list");
+	User loginUser = null;
 %>    
     
 <%@ include file="/views/common/header.jsp" %>
@@ -172,7 +173,7 @@
                     <% for(UserBookMark ubm : list) { %>
 	                    <tr>
 	                    	<!-- no -->
-							<td><%= ubm.get %></td>
+							<td><%= ubm %></td>
 							<!-- 제목 -->
 							<td><%=  %></td>
 							<!-- 펫 시터 이름 --> 

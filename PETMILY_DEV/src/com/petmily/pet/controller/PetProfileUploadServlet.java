@@ -97,25 +97,25 @@ public class PetProfileUploadServlet extends HttpServlet {
 		
 		
 		
-		Pet pet = new Pet(0,userId,petName,petGender,petKind,petWeight,petAge,
-				petAffinity, petNeutralization,petDisease,petDiseaseTxt,petSeparation,
-				petSeparationTxt,petUrine,petUrineTxt, petIndoor,petIndoorTxt,
-				petHowling,petHowlingTxt,heartDisease,vaccine,corona,kennel,
-				hospitalName,hospitalPhone,hospitalZip,hospitalAddress,detail,
-				petImg,registration);
+//		Pet pet = new Pet(0,userId,petName,petGender,petKind,petWeight,petAge,
+//				petAffinity, petNeutralization,petDisease,petDiseaseTxt,petSeparation,
+//				petSeparationTxt,petUrine,petUrineTxt, petIndoor,petIndoorTxt,
+//				petHowling,petHowlingTxt,heartDisease,vaccine,corona,kennel,
+//				hospitalName,hospitalPhone,hospitalZip,hospitalAddress,detail,
+//				petImg,registration);
 		
 		
-		int result = new PetService().petprofileinsert(pet,id);
+//		int result = new PetService().petprofileinsert(pet,id);
 		
 		String msg = "";
 		String loc = "";
-		if(result>0) {
-			msg = "펫프로필 등록 성공";
-			loc="/user/petprofile";
-		}else {
-			msg = "펫프로필 등록 실패";
-			loc="/user/petprofile";
-		}
+//		if(result>0) {
+//			msg = "펫프로필 등록 성공";
+//			loc="/user/petprofile";
+//		}else {
+//			msg = "펫프로필 등록 실패";
+//			loc="/user/petprofile";
+//		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
