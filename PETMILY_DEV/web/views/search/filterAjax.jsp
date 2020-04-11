@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 
       
-	         <div class="">
+	         <div >
 	          
 	          <%for(PetsitterSearch ps:list) {%>
 	            <div class="pet_sitter_info_container border-top row px-5 py-3">

@@ -11,7 +11,7 @@ import com.petmily.user.model.service.UserService;
 import com.petmily.user.model.vo.User;
 
 
-@WebServlet("/sitter/write")
+@WebServlet("/userUpdateEnd")
 public class UserUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
