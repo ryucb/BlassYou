@@ -1,5 +1,6 @@
 package com.petmily.user.model.dao;
 
+import static com.petmily.common.JDBCTemplate.close;
 import static com.petmily.common.JDBCTemplete_User.close;
 
 import java.io.FileReader;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.petmily.user.model.vo.PetSitter2;
 import com.petmily.user.model.vo.User;
 import com.petmily.user.model.vo.UserBookMarkBoard;
 
@@ -19,7 +21,7 @@ import com.petmily.user.model.vo.UserBookMarkBoard;
 public class UserDao {
 	private Properties prop = new Properties();
 	
-//	기본 생성자에 파일 경로를 선언한다.
+//	湲곕낯 �깮�꽦�옄�뿉 �뙆�씪 寃쎈줈瑜� �꽑�뼵�븳�떎.
 	public UserDao() {
 		try {
 			String path = UserDao.class.getResource("/sql/user/user-query.properties").getPath();
@@ -28,11 +30,103 @@ public class UserDao {
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-	}// UserDao() 기본생성자
+	}// UserDao() 湲곕낯�깮�꽦�옄
 	
 	
-//	로그인 로직 구현
-//	클라이언트가 입력한 데이터가 DB에 저장되어 있는지 확인해야 한다.
+	public int insertUserTable(Connection conn, PetSitter2 pss) {
+		PreparedStatement pstmt=null;
+		int result = 0 ;
+		String sql=props.getProperty("insertUserTable");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, pss.getPetsitterId()); //?쉶?썝媛??엯 ?븘?씠?뵒
+			pstmt.setString(2, pss.getPassword()); //?쉶?썝媛??엯 鍮꾨?踰덊샇
+			pstmt.setString(3, pss.getSitterName()); //?쉶?썝媛??엯 ?씠由?
+			pstmt.setString(4, pss.getSitterBday().replaceAll("-", "/"));//?쉶?썝媛??엯 ?쑕???룿
+			pstmt.setString(5, pss.getSitterPhone());
+			pstmt.setString(6, pss.getPostCode());//?쉶?썝媛??엯 二쇱냼 ?슦?렪踰덊샇
+			pstmt.setString(7, pss.getSitterAddress()); //?쉶?썝媛??엯 二쇱냼
+			pstmt.setString(8, pss.getAddressDetail()); //?쉶?썝媛??엯 ?긽?꽭二쇱냼
+			pstmt.setString(9, pss.getSitterEmail()); //?쉶?썝媛??엯 ?씠硫붿씪
+			pstmt.setString(10, String.valueOf(pss.getSitterGender())); //?쉶?썝媛??엯 ?꽦蹂?
+			pstmt.setString(11, pss.getType()); //?쉶?썝媛??엯 ?떆?꽣 ???엯
+			result=pstmt.executeUpdate();	
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	//?렖 ?떆?꽣 ?쉶?썝媛??엯 以? USER_PET_SITTER?뿉 ???븳 硫붿냼?뱶
+	public int insertUserPetSitter(Connection conn, PetSitter2 pss) {
+		PreparedStatement pstmt=null;
+		int result = 0 ;
+		String sql=props.getProperty("insertPetSitter");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, pss.getPetsitterId()); //?렖?떆?꽣 ?븘?씠?뵒
+			pstmt.setString(2, pss.getCertificateYN()); //?렖?떆?꽣 ?옄寃⑹쬆 蹂댁쑀 ?뿬遺?
+			pstmt.setString(3, pss.getPetSitterJob()); //?렖?떆?꽣 吏곸뾽
+			pstmt.setString(4, pss.getPetSitterFamily()); //?렖?떆?꽣 媛?議? 援ъ꽦?썝
+			pstmt.setString(5, pss.getPetSitterKeeppets()); //?렖?떆?꽣 諛섎젮?룞臾? 諛섎젮 寃쏀뿕 ?뿬遺?
+			pstmt.setString(6, pss.getPetSitterActivity()); //?렖?떆?꽣 ?솢?룞 寃쎈젰
+			pstmt.setString(7, pss.getAccountOwner()); //?렖?떆?꽣 ?젙?궛怨꾩쥖 怨꾩쥖二?
+			pstmt.setString(8, pss.getBankName()); //?렖?떆?꽣 ?젙?궛怨꾩쥖 ???뻾紐?
+			pstmt.setString(9, pss.getAccountNo()); //?렖?떆?꽣 ?젙?궛怨꾩쥖 怨꾩쥖踰덊샇
+		//	pstmt.setString(10, ps.getType()); //?렖?떆?꽣 ?궗?슜?옄 ???엯(?렖?떆?꽣)
+			pstmt.setString(11, pss.getSitterImg()); //?렖?떆?꽣 ?봽濡쒗븘 ?씠誘몄?
+			result=pstmt.executeUpdate();	
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+			return result;
+	}
+		
+	//?렖 ?떆?꽣 ?쉶?썝媛??엯 以? PET_SITTER_CERTIFICATE 硫붿냼?뱶
+	public int insertPetSitterCertificate(Connection conn, PetSitter2 pss) {
+		PreparedStatement pstmt=null;
+		int result = 0 ;
+		String sql=props.getProperty("insertPetSitterCertificate");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, pss.getPetsitterId()); //?렖?떆?꽣 ?븘?씠?뵒
+			pstmt.setString(2, pss.getCertificateName()); //?렖?떆?꽣 ?옄寃⑹쬆 ?씠由?
+			pstmt.setString(3, pss.getIssuingOrg()); //?렖?떆?꽣 ?옄寃⑹쬆 諛쒓툒湲곌?
+			pstmt.setString(4, pss.getCertiGetDate()); //?렖?떆?꽣 ?옄寃⑹쬆 諛쒓툒?씪
+			pstmt.setString(5, pss.getCertiEndDate()); //?렖?떆?꽣 ?옄寃⑹쬆 留뚮즺?씪
+			pstmt.setString(6, pss.getCertiImg()); //?렖?떆?꽣 ?옄寃⑹쬆 ?씠誘몄?
+			result=pstmt.executeUpdate();	
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	//?렖?떆?꽣 ?쉶?썝媛??엯 以? RESIDENCE_TYPE ?뀒?씠釉붿뿉 ???븳 寃?
+	public int insertResidenceType(Connection conn, PetSitter2 pss) {
+		PreparedStatement pstmt=null;
+		int result = 0 ;
+		String sql=props.getProperty("insertResidenceType");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, pss.getPetsitterId()); //?렖?떆?꽣 ?븘?씠?뵒
+			pstmt.setString(2, pss.getResidenceValue()); //嫄곗＜吏? ?쑀?삎
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+//	濡쒓렇�씤 濡쒖쭅 援ы쁽
+//	�겢�씪�씠�뼵�듃媛� �엯�젰�븳 �뜲�씠�꽣媛� DB�뿉 ���옣�릺�뼱 �엳�뒗吏� �솗�씤�빐�빞 �븳�떎.
 	public User userSelect(Connection conn, String user_id, String password) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -47,18 +141,18 @@ public class UserDao {
 			
 			if(rs.next()) {
 				user = new User();
-				user.setUserId(rs.getString("USER_ID")); // 유저 아이디
-				user.setPassword(rs.getString("PASSWORD")); // 유저 패스워드
-				user.setUserName(rs.getString("USER_NAME")); // 유저 이름
-				user.setUserBirth(rs.getString("USER_BIRTH_DAY")); // 유저 생년월일
-				user.setPhone(rs.getString("PHONE")); // 유저 휴대번호
-				user.setZipCode(rs.getString("ZIP_CODE")); // 유저 우편번호
-				user.setAddress(rs.getString("ADDRESS")); // 유저 주소
-				user.setDetailAddress(rs.getString("DETAILED_ADDRESS")); // 유저 상세주소
-				user.setEmail(rs.getString("EMAIL")); // 유저 이메일
-				user.setGender(rs.getString("GENDER")); // 유저 성별
-				user.setStatus(rs.getString("STATUS")); // 유저 회원탈퇴여부
-				user.setUserType(rs.getString("USER_TYPE")); // 유저 타입(일반, 펫시터, 관리자)
+				user.setUserId(rs.getString("USER_ID")); // �쑀�� �븘�씠�뵒
+				user.setPassword(rs.getString("PASSWORD")); // �쑀�� �뙣�뒪�썙�뱶
+				user.setUserName(rs.getString("USER_NAME")); // �쑀�� �씠由�
+				user.setUserBirth(rs.getString("USER_BIRTH_DAY")); // �쑀�� �깮�뀈�썡�씪
+				user.setPhone(rs.getString("PHONE")); // �쑀�� �쑕��踰덊샇
+				user.setZipCode(rs.getString("ZIP_CODE")); // �쑀�� �슦�렪踰덊샇
+				user.setAddress(rs.getString("ADDRESS")); // �쑀�� 二쇱냼
+				user.setDetailAddress(rs.getString("DETAILED_ADDRESS")); // �쑀�� �긽�꽭二쇱냼
+				user.setEmail(rs.getString("EMAIL")); // �쑀�� �씠硫붿씪
+				user.setGender(rs.getString("GENDER")); // �쑀�� �꽦蹂�
+				user.setStatus(rs.getString("STATUS")); // �쑀�� �쉶�썝�깉�눜�뿬遺�
+				user.setUserType(rs.getString("USER_TYPE")); // �쑀�� ���엯(�씪諛�, �렖�떆�꽣, 愿�由ъ옄)
 			}
 		}
 		catch(SQLException e) {
@@ -74,7 +168,7 @@ public class UserDao {
 	
 	
 	
-//	아이디 중복확인 로직
+//	�븘�씠�뵒 以묐났�솗�씤 濡쒖쭅
 	public boolean userIdDuplicate(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -86,7 +180,7 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				flag = true; // true는 이용이 불가능 ( 아이디가 DB에 있으니, 사용할 수 없다! )
+				flag = true; // true�뒗 �씠�슜�씠 遺덇��뒫 ( �븘�씠�뵒媛� DB�뿉 �엳�쑝�땲, �궗�슜�븷 �닔 �뾾�떎! )
 			}
 		}
 		catch(SQLException e) {
@@ -100,7 +194,7 @@ public class UserDao {
 	}
 	
 	
-//	휴대번호 중복확인 로직
+//	�쑕��踰덊샇 以묐났�솗�씤 濡쒖쭅
 	public boolean phoneDuplicate(Connection conn, String phone) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -112,7 +206,7 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				flag = true; // true는 이용이 불가능 ( 아이디가 DB에 있으니, 사용할 수 없다! )
+				flag = true; // true�뒗 �씠�슜�씠 遺덇��뒫 ( �븘�씠�뵒媛� DB�뿉 �엳�쑝�땲, �궗�슜�븷 �닔 �뾾�떎! )
 			}
 		}
 		catch(SQLException e) {
@@ -126,7 +220,7 @@ public class UserDao {
 	}
 	
 	
-//	이메일 중복확인 로직
+//	�씠硫붿씪 以묐났�솗�씤 濡쒖쭅
 	public boolean emailDuplicate(Connection conn, String email) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -138,7 +232,7 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				flag = true; // true는 이용이 불가능 ( 아이디가 DB에 있으니, 사용할 수 없다! )
+				flag = true; // true�뒗 �씠�슜�씠 遺덇��뒫 ( �븘�씠�뵒媛� DB�뿉 �엳�쑝�땲, �궗�슜�븷 �닔 �뾾�떎! )
 			}
 		}
 		catch(SQLException e) {
@@ -152,23 +246,23 @@ public class UserDao {
 	}
 	
 	
-//	회원가입 로직
+//	�쉶�썝媛��엯 濡쒖쭅
 	public int userJoin(Connection conn, User u) {
 		PreparedStatement pstmt=null;
 		int result = 0;
 		String sql = prop.getProperty("userJoin");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, u.getUserId()); // 유저 아이디
-			pstmt.setString(2, u.getPassword()); // 유저 비밀번호
-			pstmt.setString(3, u.getUserName()); // 유저 이름
-			pstmt.setString(4, u.getUserBirth()); // 유저 생년월일
-			pstmt.setString(5, u.getPhone()); // 유저 휴대폰 번호
-			pstmt.setString(6, u.getZipCode()); // 유저 우편번호
-			pstmt.setString(7, u.getAddress()); // 유저 주소
-			pstmt.setString(8, u.getDetailAddress()); // 유저 상세주소
-			pstmt.setString(9, u.getEmail()); // 유저 이메일
-			pstmt.setString(10, u.getGender()); // 유저 성별
+			pstmt.setString(1, u.getUserId()); // �쑀�� �븘�씠�뵒
+			pstmt.setString(2, u.getPassword()); // �쑀�� 鍮꾨�踰덊샇
+			pstmt.setString(3, u.getUserName()); // �쑀�� �씠由�
+			pstmt.setString(4, u.getUserBirth()); // �쑀�� �깮�뀈�썡�씪
+			pstmt.setString(5, u.getPhone()); // �쑀�� �쑕���룿 踰덊샇
+			pstmt.setString(6, u.getZipCode()); // �쑀�� �슦�렪踰덊샇
+			pstmt.setString(7, u.getAddress()); // �쑀�� 二쇱냼
+			pstmt.setString(8, u.getDetailAddress()); // �쑀�� �긽�꽭二쇱냼
+			pstmt.setString(9, u.getEmail()); // �쑀�� �씠硫붿씪
+			pstmt.setString(10, u.getGender()); // �쑀�� �꽦蹂�
 			result=pstmt.executeUpdate();			
 			
 		}catch(SQLException e) {
@@ -181,12 +275,12 @@ public class UserDao {
 
 //	-----------------------------------------------------------
 	
-//	임의로 만든 내 정보보기를 눌렀을 때, 먼저 뿌려져야 하는 정보를 가져오는 로직
+//	�엫�쓽濡� 留뚮뱺 �궡 �젙蹂대낫湲곕�� �닃���쓣 �븣, 癒쇱� 肉뚮젮�졇�빞 �븯�뒗 �젙蹂대�� 媛��졇�삤�뒗 濡쒖쭅
 	public User userSelect(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		User u = null;
-		String sql = prop.getProperty("duplicate"); // id를 찾는 같은 SQL문
+		String sql = prop.getProperty("duplicate"); // id瑜� 李얜뒗 媛숈� SQL臾�
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -220,13 +314,13 @@ public class UserDao {
 	}
 	
 	
-//	회원정보 수정 로직
+//	�쉶�썝�젙蹂� �닔�젙 濡쒖쭅
 	public int userUpdate(Connection conn, String id, String newPw, String email, String phone, String postNum, String address, String detailAddress) {
 		PreparedStatement pstmt = null;
 		int result= 0;
 		String sql = prop.getProperty("userUpdate");
 		try {
-//			바꿀 정보 : 새 비밀번호, 이메일, 휴대번호, 우편번호, 도로명주소, 상세주소
+//			諛붽� �젙蹂� : �깉 鍮꾨�踰덊샇, �씠硫붿씪, �쑕��踰덊샇, �슦�렪踰덊샇, �룄濡쒕챸二쇱냼, �긽�꽭二쇱냼
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newPw);
 			pstmt.setString(2, email); 
@@ -234,7 +328,7 @@ public class UserDao {
 			pstmt.setString(4, postNum);
 			pstmt.setString(5, address);
 			pstmt.setString(6, detailAddress);
-			pstmt.setString(7, id); // SQL 조건문
+			pstmt.setString(7, id); // SQL 議곌굔臾�
 			result = pstmt.executeUpdate();
 		}
 		catch(SQLException e) {
@@ -246,14 +340,14 @@ public class UserDao {
 		return result;
 	}
 	
-//	회원탈퇴 로직
+//	�쉶�썝�깉�눜 濡쒖쭅
 	public int userDelete(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("userDelete");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id); // SQL 조건
+			pstmt.setString(1, id); // SQL 議곌굔
 			result = pstmt.executeUpdate();
 		}
 		catch(SQLException e) {
@@ -265,7 +359,7 @@ public class UserDao {
 		return result;
 	}
 	
-//	북마크 로직 (테이블 내용을 가져온다 - UserBookMarkBoard vo 객체)
+//	遺곷쭏�겕 濡쒖쭅 (�뀒�씠釉� �궡�슜�쓣 媛��졇�삩�떎 - UserBookMarkBoard vo 媛앹껜)
 	public List<UserBookMarkBoard> userBookMarkBoard(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
