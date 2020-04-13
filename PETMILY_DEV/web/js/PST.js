@@ -104,7 +104,7 @@ window.onclick = function(event) {
     }
 }
 
-select_end.onclick = function(){
+/*select_end.onclick = function(){
     var select_end1 = document.getElementById("section_end1");
     var select_end2 = document.getElementById("section_end2");
 
@@ -115,23 +115,27 @@ select_end.onclick = function(){
     reservation_modal.style.display = "none";
     $('body').css("overflow", "scroll");
     
-    var payment_content = "날짜: ";
+    var payment_content = "날짜: ?? ";
     
     payment +=  "???&nbsp;&nbsp;&nbsp;" + "소형견: " ;  
     
     
     
 
-}
+}*/
 
 function resulvation_cancel(){
+	
+	var select_end1 = document.getElementById("section_end1");
+    var select_end2 = document.getElementById("section_end2");
 
     var result = confirm("결제를 취소하시겠습니까?");
 
     if(result){
         reservation_end_modal.style.display = "none";
         $('body').css("overflow", "scroll");
-        
+        select_end2.style.display = "none";
+        select_end1.style.display = "flex";
     }
 
 }
