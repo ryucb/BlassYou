@@ -73,6 +73,7 @@ public class PetInfo {
 		this.petImgFilename = petImgFilename;
 		this.petRegistration = petRegistration;
 	}
+	
 
 	public int getPetCode() {
 		return petCode;

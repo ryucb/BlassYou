@@ -94,7 +94,7 @@ public class BoardList extends HttpServlet {
 		
 		request.setAttribute("petsInfo", petsST);
 		
-		request.getRequestDispatcher(request.getContextPath()+"/views/board/boardListDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/boardListDetail.jsp").forward(request, response);
 		
 		
 	}

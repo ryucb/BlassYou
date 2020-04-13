@@ -3,7 +3,6 @@ package com.petmily.reservation.model.vo;
 public class PetReservation {
 
 	private String reservationCode;
-	private int petCode;
 	private String petSitterId;
 	private int boardNo;
 	private String checkIn;
@@ -17,15 +16,15 @@ public class PetReservation {
 	private String priceEndDate;
 	private int price;
 	private String resType;
+	
 	public PetReservation() {
 		// TODO Auto-generated constructor stub
 	}
-	public PetReservation(String reservationCode, int petCode, String petSitterId, int boardNo, String checkIn,
+	public PetReservation(String reservationCode, String petSitterId, int boardNo, String checkIn,
 			String checkOut, String careType, String petType, int petBath, String petMedication, String petPickup,
 			String plusQuestion, String priceEndDate, int price, String resType) {
 		super();
 		this.reservationCode = reservationCode;
-		this.petCode = petCode;
 		this.petSitterId = petSitterId;
 		this.boardNo = boardNo;
 		this.checkIn = checkIn;
@@ -45,12 +44,6 @@ public class PetReservation {
 	}
 	public void setReservationCode(String reservationCode) {
 		this.reservationCode = reservationCode;
-	}
-	public int getPetCode() {
-		return petCode;
-	}
-	public void setPetCode(int petCode) {
-		this.petCode = petCode;
 	}
 	public String getPetSitterId() {
 		return petSitterId;
@@ -132,7 +125,7 @@ public class PetReservation {
 	}
 	@Override
 	public String toString() {
-		return "PetReservation [reservationCode=" + reservationCode + ", petCode=" + petCode + ", petSitterId="
+		return "PetReservation [reservationCode=" + reservationCode + ", petSitterId="
 				+ petSitterId + ", boardNo=" + boardNo + ", checkIn=" + checkIn + ", checkOut=" + checkOut
 				+ ", careType=" + careType + ", petType=" + petType + ", petBath=" + petBath + ", petMedication="
 				+ petMedication + ", petPickup=" + petPickup + ", plusQuestion=" + plusQuestion + ", priceEndDate="

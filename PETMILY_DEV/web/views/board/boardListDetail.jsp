@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.petmily.reservation.model.vo.ReservationPetCode"%>
+<%@page import="com.petmily.reservation.model.vo.PetReservation"%>
 <%@page import="javafx.geometry.Pos"%>
 <%@page import="com.petmily.pet.model.vo.PetInfo"%>
 <%@page import="com.petmily.review.model.vo.ReviewPetSitter"%>
@@ -29,11 +32,18 @@
 	boolean bookmarkFlag = (boolean)request.getAttribute("bookmark");
 	List<ReviewPetSitter> reviews = (List)request.getAttribute("reviews");
 	List<PetInfo> petsInfos = (List)request.getAttribute("petsInfo");
+	PetReservation reservation = new PetReservation();
+	List<ReservationPetCode> rPetCodeT = new ArrayList<ReservationPetCode>();
+	
+	
 
 
 %>
       
 <%@ include file="/views/common/header.jsp"%>
+
+
+<link href="<%=request.getContextPath() %>/css/PST.css" rel="stylesheet">
 
     <section>
     
@@ -94,10 +104,7 @@
             <div class="col-lg-6 main_content_01">
 
 				
-				
-                <button id="bline_process" class="btn btn-secondary button_radius" style="margin-left: 10px;">블라인드 처리</button>
-                <button onclick="handlePaste();"class="btn btn-secondary button_radius">수정</button>
-                <button class="btn btn-secondary button_radius">공유</button>
+                <button id="bline_process" class="btn btn-secondary button_radius" style="margin-left: 70%;">블라인드 처리</button>
 
             </div>
 
@@ -115,7 +122,7 @@
                 	
                 	<div class="col-lg-8" style="height: 100%;">
                 	
-                		<table style="width:200px; height:50%; margin-left: 50%;transform: translateX(-50%); margin-top: 50px;">
+                		<table style="width:250px; height:50%; margin-left: 50%;transform: translateX(-50%); margin-top: 50px;">
                             <tr>
                             	<%if(certificateFlag) {%>
 	                                <td><button>프로 펫시터</button></td>
@@ -351,7 +358,7 @@
 
         </div>
 
-        <div class="row" id="review_con">
+        <div class="row" id="review_con" style="display:none;">
         <%for(ReviewPetSitter review : reviews) {%>    
             <div class="col-lg-1"></div>
             
@@ -389,7 +396,8 @@
 	
 	                </div>
 	
-					<%if(review.getReviewSend()!=null) {%>
+					<%if(review.getReviewSend()!=null) {%>						
+						
 		                <div class="col-lg-2" style="height: 200px;">
 		
 		                    <div class="review_profile">
@@ -402,7 +410,7 @@
 		                    
 		                <div class="col-lg-10">
 		
-		                    <div style="border:1px solid gray; width:100%; height: 100px; margin-top: 50px;"></div>
+		                    <div style="border:1px solid gray; width:100%; height: 100px; margin-top: 50px;"><%=review.getReviewSend()%></div>
 		
 		                </div>
 		       		<%} %>
@@ -435,7 +443,7 @@
 	        <div class="col-lg-2" style="height: 100%;">
 	             <button id="reservation_end" class="btn btn-secondary button_radius" style="width: 150px; height: 60%; margin-top: 12.5px;">결제</button>
 	        </div>
-	
+	 
 	    </div>
 
     </section>
@@ -482,114 +490,107 @@
                 </tr>
             </table>
             <hr style="margin-top: 1px;">
-            <div class="row">
+            <div class="row" style="height:100%">
             	<%for(PetInfo petInfo : petsInfos) {%>
-                	<div class="col-md-6"><button onclick="petDisplayCh('<%=petInfo.getPetCode() %>');"; style="width: 80%;margin-left: 50%;transform: translateX(-50%);"><%=petInfo.getPetName() %></button></div>
+                	<div class="col-md-6"><button onclick="petDisplay('<%=petInfo.getPetCode()%>','<%=petInfo.getPetWeight() %>');"; style="width: 80%;margin-left: 50%;transform: translateX(-50%);"><%=petInfo.getPetName() %></button></div>
+                	
                 <%} %>
             </div>
             
             <br>
+            
+            <div id="addS" style="display:none">추가 옵션 선택</div>
+		    <hr>
 
 			<%for(PetInfo petInfo : petsInfos) {%>
 				<div id="<%=petInfo.getPetCode()%>" style="display :none;">
-		            <div>추가 옵션 선택</div>
-		            <hr>
-		            <table>
+		            
+		            <table style="width:100%">
 		            	<%for(PlusOptionService pos : pOServiceList) {%>
 		            		<%if(pos.getPlusOptionType().equals("목욕가능")){ %>
 		            			<%if(petInfo.getPetWeight().equals("소형")) {%>
 				            		<tr>
-					                    <td>목욕</td>
-					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getSmallPrice() %>원&nbsp;&nbsp;&nbsp;<input onclick="bath_con('<%=petInfo.getPetName() %>');" id="bath" type="checkbox"></td>
+					                    <td>목욕 / <%=petInfo.getPetName() %></td>
+					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getSmallPrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>');" id="-<%=petInfo.getPetCode() %>" type="checkbox"></td>
 					                </tr>
 					         	<%}else if(petInfo.getPetWeight().equals("중형")) {%>
 					         		<tr>
 					                    <td>목욕</td>
-					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getMiddlePrice() %>원&nbsp;&nbsp;&nbsp;<input onclick="bath_con('<%=petInfo.getPetName() %>');" id="bath" type="checkbox"></td>
+					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getMiddlePrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>');" id="<%=-petInfo.getPetCode() %>" type="checkbox"></td>
 					                </tr>
 					         	<%} else{ %>
 					         		<tr>
 					                    <td>목욕</td>
-					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getBigPrice() %>원&nbsp;&nbsp;&nbsp;<input onclick="bath_con('<%=petInfo.getPetName() %>');" id="bath" type="checkbox"></td>
+					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getBigPrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>');" id="<%=-petInfo.getPetCode() %>" type="checkbox"></td>
 					                </tr>
 					         	<%} %>
 			                <%break;} %>
 		            	<%} %>
 		            	
-		            	<%-- <tr>
-		                    <td>목욕</td>
-		                    <td style="text-align: right; margin-right: 30px; ">??원&nbsp;&nbsp;&nbsp;<input onclick="bath_con('<%=petInfo.getPetName() %>');" id="bath" type="checkbox"></td>
-		                </tr> --%>
-		
+		            	<td><br></td>
+	            	</table>
+            	</div>
+            <%} %>
+            
+            
+            	<div style="height:100%">
+            		<table style="width:100%">
 		            	<%for(PlusOptionService pos : pOServiceList) {%>
 		            		<%if(pos.getPlusOptionType().equals("약물복용")){ %>
-		            			<%if(petInfo.getPetWeight().equals("소형")) {%>
-				            		<tr>
-					                    <td>약물 복용</td>
-					                    <td style="text-align: right; margin-right: 30px;"><input onclick="medication_con('<%=petInfo.getPetName() %>');" id="Medication" type="checkbox"></td>
-					                </tr>
-					         	<%}else if(petInfo.getPetWeight().equals("중형")) {%>
-				            		<tr>
-					                    <td>약물 복용</td>
-					                    <td style="text-align: right; margin-right: 30px;"><input onclick="medication_con('<%=petInfo.getPetName() %>');" id="Medication" type="checkbox"></td>
-					                </tr>
-					         	<%} else{ %>
-				            		<tr>
-					                    <td>약물 복용</td>
-					                    <td style="text-align: right; margin-right: 30px;"><input onclick="medication_con('<%=petInfo.getPetName() %>');" id="Medication" type="checkbox"></td>
-					                </tr>
-					         	<%} %>
+			            		<tr id="medication1" style="display:none">
+				                    <td>약물 복용</td>
+				                    <td style="text-align: right; margin-right: 30px;"><input onclick="medication_con();" id="Medication" type="checkbox"></td>
+				                </tr>
 			                <%break;} %>
-		            	<%} %>		                
+		            	<%} %>		          
+		            	
+		            	<td><br></td>      
 		
-<%-- 						<%for(PlusOptionService pos : pOServiceList) {%>
+ 						<%for(PlusOptionService pos : pOServiceList) {%>
 							<%if(pos.getPlusOptionType().equals("집앞픽업")){ %>
-				                <tr>
+				                <tr id="pickup" style="display:none">
 				                    <td>집 앞 픽업</td>
-				                    <td style="text-align: right; margin-right: 30px;">편도 <%=pos.getOneWayPrice() %>원 왕복 <%=pos.getAllWayPrice() %>원&nbsp;&nbsp;&nbsp;<input type="checkbox"></td>
+				                    <td style="text-align: right; margin-right: 30px;">편도 <%=pos.getOneWayPrice() %>원 왕복 <%=pos.getAllWayPrice() %>원 <input type="checkbox"></td>
 				                </tr>
 				                <tr>
-				                    <td colspan="2">펫 시터에게 갈 때 <input type="radio" name="move"> &nbsp;&nbsp;집으로 돌아 갈 때 <input type="radio" name="move">&nbsp;&nbsp; 왕복 <input type="radio" name="move"></td>
+				                    <td colspan="2">펫 시터에게 갈 때 <input type="radio" name="move"> 집으로 돌아 갈 때 <input type="radio" name="move"> 왕복 <input type="radio" name="move"></td>
 				                </tr>
 			                <%} %>
 		                <%} %>
-		 --%>
 		            </table>
 	            </div>
-            <%} %>
+            
 
             <div>추가 요청 및 문의 사항</div>
             <input type="text" placeholder="300자 이내" style="width: 100%; line-height: 100px;">
+            
+            <br>
 
-            <div>영수증</div>
+            <div><button onclick="receipt();">영수증 확인</button></div>
             <hr>
 
-            <table>
+            <table id="receipt_con" style="display:none;">
                 <tr>
-                    <td>날짜</td>
-                    <td style="text-align: right;">해당금액</td>
+                    <td id="t_date">날짜</td>
+                    <td style="text-align: right;" id="p_date">해당금액</td>
                 </tr>
                 <tr>
-                    <td>대중소</td>
-                    <td style="text-align: right;">해당금액</td>
+                    <td id="t_weight">대중소</td>
+                    <td style="text-align: right;" id="p_weight">해당금액</td>
                 </tr>
                 <tr>
-                    <td>목욕</td>
-                    <td style="text-align: right;">해당금액</td>
+                    <td id="t_bath">목욕</td>
+                    <td style="text-align: right;" id="p_bath">해당금액</td>
                 </tr>
                 <tr>
-                    <td>약물복용</td>
-                    <td style="text-align: right;">해당금액</td>
-                </tr>
-                <tr>
-                    <td>집앞픽업</td>
-                    <td style="text-align: right;">해당금액</td>
+                    <td id="t_pickup">집앞픽업</td>
+                    <td style="text-align: right;" id="p_pickup">해당금액</td>
                 </tr>
             </table>
 
             <hr>
 
-            <table>
+            <table id="receipt_total" style="display:none;">
                 <tr>
                     <td>합계금액</td>
                     <td style="text-align: right;">해당금액</td>
@@ -627,11 +628,11 @@
 
                 <div class="col-md-2"></div>
                 <div class="col-md-8">사유<br>
-                    <input type="text" list="reason" style="width:110%" placeholder="사유 선택">
+                    <input type="text" list="reason" style="width:110%" placeholder="사유 입력">
                     <datalist id="reason">
-                        <option value="사유1"></option>
-                        <option value="사유2"></option>
-                        <option value="사유3"></option>
+                        <option value="부적절한 게시글 기재"></option>
+                        <option value="지속적으로 낮은 서비스 제공"></option>
+                        <option value="기타"></option>
                     </datalist></div>                    
                 <div class="col-md-2"></div>
 
@@ -667,9 +668,11 @@
                 <div class="col-md-8">사유<br>
                     <input type="text" list="reason" style="width:110%" placeholder="사유 선택">
                     <datalist id="reason">
-                        <option value="사유1"></option>
-                        <option value="사유2"></option>
-                        <option value="사유3"></option>
+                        <option value="인신 공격 및 모욕"></option>
+                        <option value="개인정보 유출"></option>
+                        <option value="부적절한 내용"></option>
+                        <option value="허위 사실 유포"></option>
+                        <option value="기타"></option>
                     </datalist></div>                    
                 <div class="col-md-2"></div>
 
@@ -785,7 +788,16 @@
 <script>
 
 var flag = <%=bookmarkFlag%>;
-console.log(window.location.href);
+var petCodes = new Array();
+var petWeights = new Array();
+var big = 0;
+var middle = 0;
+var small = 0;
+
+var b_big = 0;
+var b_middle = 0;
+var b_small = 0;
+
 
 function bookmark(){
 		
@@ -806,7 +818,6 @@ function bookmark(){
 			event.target.src = "<%=request.getContextPath()%>/img/bookmark/bookmarkBlack.png";
 		else
 			event.target.src = "<%=request.getContextPath()%>/img/bookmark/bookmarkRed.png";
-		
 }
 
 bline_process.onclick = function() {
@@ -814,38 +825,148 @@ bline_process.onclick = function() {
     $('body').css("overflow", "hidden");
 }
 
-function petDisplayCh(data){
+function petDisplay(petCode, weight){
 	
-	<%for(PetInfo petInfo : petsInfos){%>
 	
-		$("#" + <%=petInfo.getPetCode()%>).attr("style", "display : none;");
+	if(document.getElementById(petCode).style.display=="block"){
+		$("#" + petCode).attr("style", "display :none;");
+		petCodes.splice(petCodes.indexOf(petCode), 1);
+		if(weight=="소형")
+			small--;
+		else if(weight=="중형")
+			middle--;
+		else
+			big--;
+		console.log(petCodes);
+		console.log(small, middle, big);
+		return;
+	}
+	
+	if(weight=="소형")
+		small++;
+	else if(weight=="중형")
+		middle++;
+	else
+		big++;
+	
+	petCodes.push(petCode);
+	
+	console.log(petCodes);
+	console.log(small, middle, big);
+	
+<%-- 	<%
+		ReservationPetCode rPetCode = new ReservationPetCode();
+		rPetCode.setPetCode(petInfo.getPetCode());
+		rPetCode.setPetSize(petInfo.getPetWeight());
+ 	%> --%>
+	
+	document.getElementById("p_bath").innerHTML = 11;
+	
+	
+	$("#" + petCode).attr("style", "display :block; width:100%; height:100%;");
+	
+	
+	$("#addS").attr("style", "display :block;");
+	$("#medication1").attr("style", "display :block;");
+	$("#pickup").attr("style", "display :block;");
+	
+	
+}
+
+function bath_con(data){
+	var code = "<tr id='bath_content'><td style='width:80%'><input type='text' placeholder='ex)산책 후 목욕 부탁드립니다. 50자 이내' style='width:100%'></td><td style='text-align:right; width:20%'><input type='number' id='path_" + -data + "' placeholder='횟수' style='width:100%'></td></tr>";
+	
+	/* $("#" + data).parent().parent().after(code); */
+	$("#" + data).parent().parent().after(code);
+	
+	
+	if(document.getElementById(data).checked==false)
+		$("tr").remove("#bath_content");
+	
+	
+	
+}
+
+function medication_con(){
+	var code = "<tr id='medication_content'><td colspan='2'><input style='width: 100%;' type='text' placeholder='ex) 포포에게 감기약(알약) 복용 부탁드립니다.'></td></tr>";
+
+	$("#Medication").parent().parent().after(code);
+	
+	if(document.getElementById("Medication").checked==false)
+		$("tr").remove("#medication_content");
+	
+}
+
+function receipt(){
+	$("#receipt_con").attr("style", "display:table");
+	$("#receipt_total").attr("style", "display:table");
+	
+	var day = 0;
+	var weightCode = "";
+	var weightPrice = 0;
+	var bathCode = "";
+	var bathPrice = 0;
+	var pickupCode = "";
+	var pickupPrice = 0;
+	
+	if(small>0)
+		weightCode += "소형견 * " + small + " ";
+	
+	if(middle)
+		weightCode += "중형견 * " + middle + " ";
+	
+	if(big)
+		weightCode += "대형견 * " + big + " ";
+	
+	weightPrice = (<%=boardT.getBigPrice()%> * big) + (<%=boardT.getMiddlePrice()%> * middle) + (<%=boardT.getSmallPrice()%> * small);
+	
+	document.getElementById("t_weight").innerHTML = weightCode;
+	document.getElementById("p_weight").innerHTML = weightPrice + "원";
+	
+<%-- 	path_<%=petInfo.getPetCode()%>
+	 --%>
+	 
+	<%-- <%rPetCodeT = new ArrayList<ReservationPetCode>();%> --%>
+	 
+	<%for(PetInfo petInfo : petsInfos) {%>
+		if(document.getElementById('<%=petInfo.getPetCode()%>').style.display!='none'){
+			<%-- <%ReservationPetCode rp = new ReservationPetCode();%> --%>
+			if(<%=petInfo.getPetWeight()%>.equals("소형")){
+				<%-- b_small += (document.getElementById(path_<%=petInfo.getPetCode()%>)) --%>
+				console.log(document.getElementById(path_<%=petInfo.getPetCode()%>));
+			}else if(<%=petInfo.getPetWeight()%>.equals("중형"){
+				
+			}else{
+			/* 이부분고치자 */	
+			}
+<%-- 			<%rp.setPetCode(petInfo.getPetCode());%>
+			<%rp.setPetSize(petInfo.getPetWeight());%>
+			<%rp.setPetBath(petBath);%>
+			<%rPetCodeT.add(rp);%> --%>
+		}
 	
 	<%}%>
 	
 	
 	
 	
-	$("#" + data).attr("style", "display :block; width:100%; height:100%;");
 	
-}
-
-function bath_con(data){
-	var code = "<tr id='bath_content'><td>" + data +  "<br><input type='text' placeholder='ex)입력해!!'></td><td style='text-align:right;'>목욕 횟수<br><input type='number'></td></tr>";
+	if(small>0)
+		weightCode += "목욕(소) * " + small + " ";
 	
-	$("#bath").parent().parent().after(code);
+	if(middle)
+		weightCode += "목욕(중) * " + middle + " ";
 	
-	if(document.getElementById("bath").checked==false)
-		$("tr").remove("#bath_content");
+	if(big)
+		weightCode += "목욕(대) * " + big + " ";
 	
-}
-
-function medication_con(data){
-	var code = "<tr id='medication_content'><td colspan='2'>" + data +  "<br><input style='width: 100%;' type='text' placeholder='입력!'></td></td></tr>";
-
-	$("#Medication").parent().parent().after(code);
+	weightPrice = (<%=boardT.getBigPrice()%> * big) + (<%=boardT.getMiddlePrice()%> * middle) + (<%=boardT.getSmallPrice()%> * small);
 	
-	if(document.getElementById("Medication").checked==false)
-		$("tr").remove("#medication_content");
+	
+	
+	
+	
+	
 	
 }
 
