@@ -1,0 +1,30 @@
+.pet_sitter_container {
+  width: 100%;
+  height: 520px;
+}
+
+.nav-item {
+  display: block;
+}
+
+.nav .nav-item:not(:first-child) {
+  margin-left: 10px;
+}
+
+.active {
+  color: #007bff;
+}
+
+.inactive {
+  color: #d3d9de;
+}
+
+.pet_sitter_info_container {
+  width: 100%;
+  height: 250px;  
+}
+.align-items-end {
+    -ms-flex-align: end!important;
+    align-items: flex-end!important;
+    margin-top: 80px;
+}

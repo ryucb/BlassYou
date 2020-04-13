@@ -1,0 +1,71 @@
+.filter_container {
+  width: 100%;
+  height: 228px;
+}
+
+.filter_container .row {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.place_container {
+  width: 530px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border: 1px solid #6d7884;
+  border-radius: 20px;
+}
+
+#search_box > input {
+  margin-left: 10px;
+  width: 460px;
+  background-color: #f0f0f0;
+  border: none;
+}
+
+#check_in_out button:first-child {
+  margin-left: 10px;
+}
+
+#check_in_out button:last-child {
+  margin-right: 15px;
+}
+
+.filter_box header {
+  font-size: 20px;
+  margin-left: 100px;
+}
+
+
+.search_btn {
+  position: relative;
+  margin-top: 20px;
+}
+
+.search_btn .btn {
+  background-color: black;
+  width: 200px;
+  border: 1px solid #6d7884;
+  border-radius: 50px;
+  position: absolute;
+  right: 115px;
+  color:white;
+}
+
+.filter_btn_box .btn {
+  
+  width: 200px;
+  border-radius: 50px;
+  border: solid 1px #ffcc33;
+  background-color: white;
+  color:#ffcc33;
+}
+
+.filter_btn_box:hover .btn:hover {
+  
+  width: 200px;
+  border-radius: 50px;
+  border: solid 1px #ffcc33;
+  background-color: #ffcc33;
+  color:white;
+}

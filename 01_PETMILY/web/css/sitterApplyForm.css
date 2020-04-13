@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+	*{
+	    /* 마진,패딩값 초기화*/
+	    margin: 0;
+	    padding: 0;
+	    font-family: 'Noto Sans KR', sans-serif; 
+	    font-size:14px;
+	 }
+	 
+	body{
+		margin-bottom:0px;
+		font-family: 'Noto Sans KR', sans-serif;
+		
+	}
+    
+    article {
+	    width: 1366px;
+	    margin: 0 auto;
+	}
+    
+    
+    /*펫시터 지원폼 타이틀*/
+    p#title{
+    	text-align:center; 
+    	margin-top:100px;
+    	margin-bottom:50px;
+    	font-size:24pt;
+    	font-weight: 500;
+    }
+    
+    /*개인정보 이용 동의 안내박스 */
+    div#agreementBox{
+    	margin: 0 auto; /*위+아래 와 왼쪽+오른쪽*/
+    	/* text-align:justify; */
+    	padding: 20px 10px;
+    	width:830px;
+    	/* border :1px solid; */
+    	background-color: #f0f0f0;
+    	margin-bottom :20px;
+    	border-radius: 5px;
+    	
+    }
+    
+    /*안내 박스에 대한 동의합니다,하지않습니다 체크*/
+    div#agreementRadio{
+    	margin: 0 auto;
+    	/* border :1px solid; */
+    	width:830px; 
+    	text-align : right;
+    	margin-bottom : 40px;
+    }
+    
+    /*지원자 성명, 이메일, 거주지 주소 테이블 */
+    table#applyInfo{
+    	margin: 0 auto;
+    	margin-bottom : 30px;
+    	/* border :1px solid; */
+    	width: 475px;
+    	/* background-color: #f0f0f0; */
+    }
+    /*지원자 성명, 이메일, 거주지 주소 위아래 간격 조절 */
+    .info{
+    	/* background-color:pink; */
+    	padding-bottom : 25px;
+    	
+    }
+    /*지원자 성명, 이메일, 거주지 주소 input 태그 간격 조정 */
+    /* .infoInput{
+    	margin-left:30px;
+    } */
+    /*지원자 성명, 이메일, 거주지 주소 input 태그 길이,간격 */
+     input.applyInfoWidth{
+     	height: 30px;
+    	width:250px;
+    	margin-left:50px;
+    	border-radius: 5px;
+		line-height: 20px;
+		padding-left: 10px;
+		border: 1px solid rgb(182, 182, 182);
+		
+    }
+    
+    /*거주지 유형, 반려동물 자격증 보유, 직업 테이블 전체적인 틀*/
+    table.additionalInfo{
+    	margin: 0 auto; 
+    	/* background-color:grey;  */
+    	width: 475px;
+    	padding-bottom:35px;
+    }
+    
+    /*거주지 유형, 반려동물 자격증 보유, 직업 테이블 소제목간 띄어쓰기*/
+    td.tableSubheading{
+    	padding-bottom:17px;
+    }
+    
+    /*거주지 유형, 반려동물 자격증 보유, 직업 input 간격 조정*/
+    input.checkcheck{
+    	margin-left:30px;
+    }
+    
+    /*자격증 보유 여부 '네,아니오' 간격 조정*/
+    label#certiLabel{
+    	padding-left:93px;
+    }
+    
+    /*가족구성원, 반려동물 반려여부,펫시터활동경력여부 작성박스*/
+    textarea.detailWriteBox{
+    	margin-bottom:20px;
+    	border-radius: 5px;
+    }
+    
+    /*거주지유형, 직업  radio,checkbox 간격 조정*/
+    td.labelpadding{
+    	padding-bottom:10px;
+    }
+    
+    /*제출 버튼*/
+	button#submitbtn {
+   /* 원래는 안 보이게 해야 한다 */
+   /* display: none; */
+   
+   /* 버튼 크기, 테두리 설정 */
+    padding: 10px 60px;
+    margin-left: 610px;
+
+    background-color: black; /* 버튼 배경 */
+    border-radius:25px; /* 버튼을 둥글게! */
+    border: 0; /* 박스 선 없애기! */
+    font-size: large; /* 폰트 사이즈 */
+    color: white; /* 폰트 컬러 */
+	}
+/* 버튼에 마우스를 올렸을 때 마우스 포인터 설정 */
+	button#submitbtn:hover {
+	    cursor: pointer;
+	    background-color: rgb(98, 98, 98);
+	}
+	
+
+    
+    
+    

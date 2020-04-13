@@ -1,0 +1,91 @@
+@charset "UTF-8";
+*{
+	font-family:'Noto Sans KR', sans-serif;
+}
+
+section#adminMypage{
+	width:1016px;
+	padding-left:40px;
+	padding-right:40px;
+	height:920px;
+	background-size:100%;
+}
+
+div#adminPetsitterSupportList{
+	margin-top:80px;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+div#adminPetsitterSupportList>h4{
+	margin-left:100px;
+}
+
+div#adminPetsitterSupportList>p{
+	display:flex;
+	flex-direction:row;
+	margin:6px;
+	margin-left:140px;
+}
+
+div#adminPetsitterSupportList>p>a{
+	text-decoration:underline;
+	color:black;
+}
+
+div#adminUser{
+	display:flex;
+	flex-direction:column;
+	margin-top:30px;
+}
+
+div#adminUser>hr{
+	margin:5px;
+}
+
+div#adminUserData{
+	display:flex;
+	flex-direction:row;
+	margin-top:20px;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+div#adminUserInfo{
+	display:flex;
+	flex-direction:row;
+}
+
+div#adminUserInfo>h4:nth-of-type(1){
+	margin-left:100px;
+}
+
+div#adminUserInfo>h4:nth-of-type(2){
+	margin-left:300px;
+}
+
+
+div#adminUserQ>p{
+	margin:6px;
+	margin-left:140px;
+}
+
+div#adminUserQ>p>a{
+	text-decoration:underline;
+	color:black;
+}
+
+div#adminUserPlusPrice{
+	margin-left:20px;
+	margin-right:20px;
+}
+
+div#adminUserPlusPrice>p{
+	margin:6px;
+	margin-left:140px;
+}
+
+div#adminUserPlusPrice>p>a{
+	text-decoration:underline;
+	color:black;
+}
