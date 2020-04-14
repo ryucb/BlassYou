@@ -39,13 +39,16 @@
 
 
 %>
-      
 
-
+<%@include file="/views/common/header.jsp" %>
 
 <link href="<%=request.getContextPath() %>/css/PST.css" rel="stylesheet">
 
     <section>
+    
+    <input type="hidden" name="sitterId" value="<%=sitterT.getPetSitterId()%>">
+    <input type="hidden" name="boardCode" value="<%=boardT.getBoardNo()%>">
+
     
     <div class="row no-gutters" id="main_img">
 
@@ -474,7 +477,7 @@
             <div>체크 인 - 체크 아웃</div>
             <hr>
             <!-- 달력 api 완성 이후 작업 -->
-            <div>xxxx년 x월 xx일 ~ xxxx년 x월 xx일</div>
+            <div><input name="checkIn" style="width:40%" type="date" onchange="checkInC();" id="checkIn"> ~ <input name="checkOut" style="width:40%" type="date" id="checkOut" onchange="checkOutC();"></div>
             
             <br>
             
@@ -511,9 +514,9 @@
 		            			<%if(petInfo.getPetWeight().equals("소형")) {%>
 				            		<tr>
 					                    <td>목욕 / <%=petInfo.getPetName() %></td>
-					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getSmallPrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>','<%=petInfo.getPetWeight() %>');" id="-<%=petInfo.getPetCode() %>" type="checkbox"></td>
+					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getSmallPrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>','<%=petInfo.getPetWeight() %>', 'bath_<%=petInfo.getPetCode() %>');" id="-<%=petInfo.getPetCode() %>" type="checkbox"></td>
 					                </tr>
-					                <tr id='bath_content' style="display:none;">
+					                <tr id='bath_<%=petInfo.getPetCode() %>' style="display:none;">
 					                	<td style='width:80%'>
 					                		<input type='text' placeholder='ex)산책 후 목욕 부탁드립니다. 50자 이내' style='width:100%'>
 					                	</td>
@@ -524,9 +527,9 @@
 					         	<%}else if(petInfo.getPetWeight().equals("중형")) {%>
 					         		<tr>
 					                    <td>목욕</td>
-					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getMiddlePrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>','<%=petInfo.getPetWeight() %>');" id="<%=-petInfo.getPetCode() %>" type="checkbox"></td>
+					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getMiddlePrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>','<%=petInfo.getPetWeight() %>', 'bath_<%=petInfo.getPetCode() %>');" id="<%=-petInfo.getPetCode() %>" type="checkbox"></td>
 					                </tr>
-					                <tr id='bath_content' style="display:none;">
+					                <tr id='bath_<%=petInfo.getPetCode() %>' style="display:none;">
 					                	<td style='width:80%'>
 					                		<input type='text' placeholder='ex)산책 후 목욕 부탁드립니다. 50자 이내' style='width:100%'>
 					                	</td>
@@ -537,9 +540,9 @@
 					         	<%} else{ %>
 					         		<tr>
 					                    <td>목욕</td>
-					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getBigPrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>','<%=petInfo.getPetWeight() %>');" id="<%=-petInfo.getPetCode() %>" type="checkbox"></td>
+					                    <td style="text-align: right; margin-right: 30px; "><%=pos.getBigPrice() %>원 <input onclick="bath_con('<%=-petInfo.getPetCode() %>','<%=petInfo.getPetWeight() %>', 'bath_<%=petInfo.getPetCode() %>');" id="<%=-petInfo.getPetCode() %>" type="checkbox"></td>
 					                </tr>
-					                <tr id='bath_content' style="display:none;">
+					                <tr id='bath_<%=petInfo.getPetCode() %>' style="display:none;">
 					                	<td style='width:80%'>
 					                		<input type='text' placeholder='ex)산책 후 목욕 부탁드립니다. 50자 이내' style='width:100%'>
 					                	</td>
@@ -590,11 +593,11 @@
             
 
             <div>추가 요청 및 문의 사항</div>
-            <input type="text" placeholder="300자 이내" style="width: 100%; line-height: 100px;">
+            <input id="plusQuestions" type="text" placeholder="300자 이내" style="width: 100%; line-height: 100px;">
             
             <br>
 
-            <div><button onclick="receipt();">영수증 확인</button></div>
+            <div><button onclick="receipt();" style="margin-left: 50%; transform: translateX(-50%);">영수증 확인</button></div>
             <hr>
 
             <table id="receipt_con" style="display:none;">
@@ -621,7 +624,7 @@
 		           	<%if(pos.getPlusOptionType().equals("추가할인")){ %>
 		                <tr id="pos_sale" style="display:none">
 		                    <td id="t_pickup">추가할인</td>
-		                    <td style="text-align: right;" id="p_pickup">해당금액</td>
+		                    <td style="text-align: right;" id="p_sale">해당금액</td>
 		                </tr>
 		           	<%} %>
                 <%} %>
@@ -641,13 +644,9 @@
                 </tr>
             </table>
 
-            <div class="row">
-                <div class="col-md-4"></div>
+           
+            <div><button style="margin-left: 50%; transform: translateX(-50%);" id="select_end">선택완료</button></div>
 
-                <div class="col-md-4"><button id="select_end">선택완료</button></div>
-
-                <div class="col-md-4"></div>
-            </div>
             
       </div>
 
@@ -747,7 +746,7 @@
 
             <table style="text-align: center; margin-top: 70px;">
                 <tr><td>총 결제 금액</td></tr>
-                <tr><td>xx0,000원</td></tr>
+                <tr><td id="re_end_price">xx0,000원</td></tr>
                 <tr><td><a href="" style="text-decoration: none;">>예약 상세 보기</a></td></tr>
             </table>
 
@@ -849,6 +848,30 @@ var bathCode = "";
 var bathPrice = 0;
 var pickupCode = "";
 var pickupPrice = 0;
+var pickup;
+var petCodes = new Array();
+var petSizes = new Array();
+var petBaths = new Array();
+
+<%for(PetInfo pet : petsInfos){%>
+	
+	if(document.getElementById("<%=pet.getPetCode()%>").style.display!="none"){
+		petCodes.push(<%=pet.getPetCode()%>);
+		petSizes.push(<%=pet.getPetWeight()%>);
+		
+		if(document.getElementById("-<%=pet.getPetCode()%>").checked=="true"){
+			if(document.getElementById("path_-<%=pet.getPetCode()%>").value!=null){
+				petBaths.push(document.getElementById("path_-<%=pet.getPetCode()%>").value);
+			}else{
+				petBaths.push(0);
+			}
+		}else{
+			petBaths.push(0);
+		}
+		
+	}
+	
+<%}%>
 
 function bookmark(){
 		
@@ -888,8 +911,6 @@ function petDisplay(petCode, weight){
 			middle--;
 		else
 			big--;
-		console.log(petWeightCodes);
-		console.log(small, middle, big);
 		return;
 	}
 	
@@ -901,6 +922,7 @@ function petDisplay(petCode, weight){
 		big++;
 	
 	petWeightCodes.push(petCode);
+	
 	
 	
 <%-- 	<%
@@ -921,18 +943,19 @@ function petDisplay(petCode, weight){
 	
 }
 
-function bath_con(data, weight){
+function bath_con(data, weight, id){
 	/* var code = "<tr id='bath_content'><td style='width:80%'><input type='text' placeholder='ex)산책 후 목욕 부탁드립니다. 50자 이내' style='width:100%'></td><td style='text-align:right; width:20%'><input type='number' id='path_" + -data + "' placeholder='횟수' style='width:100%'></td></tr>";
 	
 	/* $("#" + data).parent().parent().after(code); */
 	/* $("#" + data).parent().parent().after(code); */
 	
-	console.log($("#path_" + -data));
 	
 	if(document.getElementById(data).checked==false){
 		
-		if(weight=="소형")
-			console.log($("#path_" + -data).val());
+		if(weight=="소형"){
+			
+		}
+			/* console.log($("#path_" + -data).val()); */
 			/* b_small--; */
 			/* console.log($("#path_" + -data).val()); */
 			/* console.log(document.getElementById("path_" + -data).innerHTML); */
@@ -940,12 +963,17 @@ function bath_con(data, weight){
 			b_middle--;
 		else
 			b_big--;
-		$("bath_content").attr("style", "display:none");
+		$("#" +id).attr("style", "display:none");
 		return;
 		
 	}
 	
-	$("#bath_content").attr("style", "display:table-cell; width:100%;");
+	
+	
+	
+	 console.log(document.getElementById("path_" + data).value); 
+	
+	$("#" + id).attr("style", "display:table-row; width:100%;");
 	
 	if(weight=="소형")
 		 b_small++;
@@ -954,12 +982,12 @@ function bath_con(data, weight){
 	else
 		b_big++;
 	
-	console.log(b_small);
+
 	
 }
 
 function medication_con(){
-	var code = "<tr id='medication_content'><td colspan='2'><input style='width: 100%;' type='text' placeholder='ex) 포포에게 감기약(알약) 복용 부탁드립니다.'></td></tr>";
+	var code = "<tr id='medication_content'><td colspan='2'><input id='medication_con' style='width: 100%;' type='text' placeholder='ex) 포포에게 감기약(알약) 복용 부탁드립니다.'></td></tr>";
 
 	$("#Medication").parent().parent().after(code);
 	
@@ -998,51 +1026,72 @@ function receipt(){
 	}
 	
 	document.getElementById("t_weight").innerHTML = weightCode;
-	document.getElementById("p_weight").innerHTML = weightPrice + "원";
+	document.getElementById("p_weight").innerHTML = numberWithCommas(weightPrice) + "원";
 	
 	
- 	if(b_small>0){
- 		bathCode += "목욕(소) * " + b_small + " ";
- 	}
- 	
-	
-	if(b_middle>0)
-		bathCode += "목욕(중) * " + b_middle + " ";
-	
-	if(b_big>0)
-		bathCode += "목욕(대) * " + b_big + " ";
-	
+
 	<%for(PlusOptionService pos : pOServiceList){%>
-	
+		var temp_s = 0;
+		var temp_m = 0;
+		var temp_b = 0;
 		<%if(pos.getPlusOptionType().equals("목욕가능")){%>
-			bathPrice = (<%=pos.getBigPrice()%> * b_big) + (<%=pos.getMiddlePrice()%> * b_middle) + (<%=pos.getSmallPrice()%> * b_small);
-			if(bathCode!=""){
-				document.getElementById("pos_bath").style.display = "table-row";
-			}
+			<%for(PetInfo pet : petsInfos){%>
+				if(document.getElementById("-<%=pet.getPetCode()%>").checked==true){
+					if("<%=pet.getPetWeight()%>"=="소형"){
+						temp_s += document.getElementById("path_-<%=pet.getPetCode()%>").value*1;
+					}else if("<%=pet.getPetWeight()%>"=="중형"){
+						temp_m += document.getElementById("path_-<%=pet.getPetCode()%>").value*1;
+					}else{
+						temp_b += document.getElementById("path_-<%=pet.getPetCode()%>").value*1;
+					}
+				}
+			<%}%>
+			bathPrice = (<%=pos.getBigPrice()%> * temp_b) + (<%=pos.getMiddlePrice()%> * temp_m) + (<%=pos.getSmallPrice()%> * temp_s);
+			
 		<%break;}%>
 	
 	<%}%>
 	
-	console.log(bathCode);
+ 	if(temp_s>0){
+ 		bathCode += "목욕(소) * " + temp_s + " ";
+ 	}
+ 	
 	
+	if(temp_m>0)
+		bathCode += "목욕(중) * " + temp_m + " ";
+	
+	if(temp_b>0)
+		bathCode += "목욕(대) * " + temp_b + " ";
+	
+	
+	/* -petCode.checked==true => path_-petcode.value */
+	
+	console.log(bathCode);
+	if(bathCode!=""){
+		document.getElementById("pos_bath").style.display = "table-row";
+	}
 	document.getElementById("t_bath").innerHTML = bathCode;
 	document.getElementById("p_bath").innerHTML = bathPrice + "원";
 	
 	<%for(PlusOptionService pos : pOServiceList){%>
 	
 		<%if(pos.getPlusOptionType().equals("집앞픽업")){%>
+		
+			if(document.getElementById("pickup2").style.display=="block"){
 			
-			if(document.getElementsByClassName("pickup")[0].checked==true){
-				pickupPrice = <%=pos.getOneWayPrice()%>;
-				pickupCode = "*편도";
-			}else if(document.getElementsByClassName("pickup")[1].checked==true){
-				pickupPrice = <%=pos.getOneWayPrice()%>;
-				pickupCode = "*편도";
-			}else if(document.getElementsByClassName("pickup")[2].checked==true){
-				pickupPrice = <%=pos.getAllWayPrice()%>;
-				pickupCode = "*왕복";
-				
-				console.log(<%=pos.getAllWayPrice()%>);
+				if(document.getElementsByClassName("pickup")[0].checked==true){
+					pickupPrice = <%=pos.getOneWayPrice()%>;
+					pickupCode = "*편도";
+					pickup="편도";
+				}else if(document.getElementsByClassName("pickup")[1].checked==true){
+					pickupPrice = <%=pos.getOneWayPrice()%>;
+					pickupCode = "*편도";
+					pickup="편도";
+				}else if(document.getElementsByClassName("pickup")[2].checked==true){
+					pickupPrice = <%=pos.getAllWayPrice()%>;
+					pickupCode = "*왕복";
+					pickup="왕복";
+				}
 			}
 					
 		<%break;}%>
@@ -1050,30 +1099,33 @@ function receipt(){
 	<%}%>
 	
 	document.getElementById("t_pickup").innerHTML += " " + pickupCode;
-	document.getElementById("p_pickup").innerHTML = pickupPrice + "원";
+	
+	document.getElementById("p_date").innerHTML = document.getElementById("checkIn").value + " ~ " + document.getElementById("checkOut").value;
 	
 	if(pickupPrice!=0){
-		$("#pos_pickup").attr("style", "display:table-cell");
+		$("#pos_pickup").attr("style", "display:table-row");
+		document.getElementById("p_pickup").innerHTML = numberWithCommas(pickupPrice) + "원";
 	}
 	
-	if(big+middle+small>1){
+	console.log(big, middle, small);
+	if((big+middle+small)>1){
 		document.getElementById("pos_sale").style.display = "table-row";
-		document.getElementById("p_pickup").innerHTML = ((big+middle+small)-1)*10000 + "원"
+		document.getElementById("p_sale").innerHTML = numberWithCommas(((big+middle+small)-1)*10000) + "원";
 	}
 	
-	document.getElementById("total_price").innerHTML = (weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000)) + "*" +  "날짜";
+	document.getElementById("total_price").innerHTML = numberWithCommas(((weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000)) * dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value))) + "원";
 		
+	console.log(weightPrice);
+	console.log(typeof(weightPrice));
+	console.log(pickupPrice);
+	console.log(typeof(pickupPrice));
+	console.log(bathPrice);
+	console.log(typeof(bathPrice));
+	console.log(((big+middle+small)-1)*10000);
+	console.log(typeof(((big+middle+small)-1)*10000));
+	console.log(dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value));
+	console.log(typeof(dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value)));
 	
-	
-	
-	
-	var day = 0;
-var weightCode = "";
-var weightPrice = 0;
-var bathCode = "";
-var bathPrice = 0;
-var pickupCode = "";
-var pickupPrice = 0;
 	
 		
 <%-- 	path_<%=petInfo.getPetCode()%>
@@ -1115,6 +1167,10 @@ var pickupPrice = 0;
 
 function pickup_con(){
 	
+	if(document.getElementById("pickup2").style.display=="block"){
+		$("#pickup2").attr("style", "display :none;");		
+	}
+	
 	$("#pickup2").attr("style", "display :block;");
 	
 }
@@ -1126,11 +1182,23 @@ select_end.onclick = function(){
     if(select_end1.display != "none")
         select_end1.style.display = "none";
 
-    select_end2.style.display = "flex";
-    reservation_modal.style.display = "none";
-    $('body').css("overflow", "scroll");
     
-    var payment_content = "날짜: ?? ~~~~~ 소형견: " + small + "중형견: " + middle + "대형견: " + big + "추가옵션: ";
+    
+    if(!isNaN(((weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000)) 
+    		* dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value)))){
+	    select_end2.style.display = "flex";
+	    reservation_modal.style.display = "none";
+	    $('body').css("overflow", "scroll");
+    }else{
+    	console.log("날짜입력해");
+    }
+    
+    var payment_content = "날짜: " + document.getElementById("checkIn").value + " ~ " + document.getElementById("checkOut").value + " / 소형견: " + small + " 중형견: " + middle + " 대형견: " + big + " / 추가옵션: ";
+    
+    	if(bathCode!= "" || pickupCode!= ""){
+    		payment_content += " / 추가옵션: ";
+    	}
+    
     	if(bathCode!= ""){
     		payment_content += " 목욕"
     	}
@@ -1141,15 +1209,91 @@ select_end.onclick = function(){
     			payment_content += " 픽업(편도)";
     	}
 
-   	payment_content += " 합계금액: (" + (weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000)) + " * 날짜)원";
+   	payment_content += " / 합계금액: " + numberWithCommas(((weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000)) * dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value))) + "원";
     
+   	
+   	
     document.getElementById("reservation_end_con").innerHTML=payment_content;
+    
+    document.getElementById("re_end_price").innerHTML = numberWithCommas(((weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000)) * dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value))) + "원";
+}
+
+function dateDiff(_date1, _date2) {
+	
+	var dateString1 = _date1;   
+	var dateString2 = _date2;  
+	  
+	var dateArray1 = dateString1.split("-");
+	var dateArray2 = dateString2.split("-");
+	  
+	var dateObj1 = new Date(dateArray1[0], Number(dateArray1[1])-1, dateArray1[2]);
+	var dateObj2 = new Date(dateArray2[0], Number(dateArray2[1])-1, dateArray2[2]);  
+	  
+	var betweenDay = (dateObj1.getTime() - dateObj2.getTime())/1000/60/60/24;
+
+	return betweenDay;
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 
+function checkOutC(){
+	if(dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value)<1){
+		document.getElementById("checkOut").value = "";
+	}
+}
+
+function checkInC(){
 	
+	if(dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value)<1){
+		document.getElementById("checkIn").value = "";
+	}
+}
+
+var reservation_end_close = document.getElementsByClassName("close")[3];
+
+if(document.getElementById('medication_con')==null){
+	var medicine = "";
+}else{
+	var medicine = document.getElementById('medication_con').value;
+}
+
+var price = ((weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000))
+		* dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value));
+
+
+
+reservation_end_close.onclick = function() {
+	
+    reservation_end_modal.style.display = "none";
+    $('body').css("overflow", "scroll");
+    
+ 
+ 	$.ajax({
+		type: "POST",
+		url: "<%=request.getContextPath()%>/insertReservation.do",
+		data: {"sitterId": "<%=sitterT.getPetSitterId()%>", "boardCode": <%=boardT.getBoardNo()%>,
+			"checkIn": document.getElementById('checkIn').value, "checkOut": document.getElementById('checkOut').value,
+			"plusQuestions": document.getElementById('plusQuestions').value, "price": ((weightPrice + pickupPrice + bathPrice-(((big+middle+small)-1)*10000)) * dateDiff(document.getElementById("checkOut").value, document.getElementById("checkIn").value)),
+			"medicine": medicine, "pickup": pickup, 
+			"petCodes": petCodes, "petSizes": petSizes, "petBaths": petBaths},
+		success: function(data){
+			
+			
+		},
+		error: function(){
+			// jsp의 전역변수
+		}
+	});
+    
+	location.replace("<%=request.getContextPath()%>/");
+}
+
 </script>
 
+<%@include file="/views/common/footer.jsp" %>
 
 
 <script src="js/PST.js"></script>
